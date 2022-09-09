@@ -1,0 +1,45 @@
+.form-div {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  display: inline-block
+}
+
+mat-card {
+  height: 25vh;
+  width: 75vh;
+  background-color: lightgrey;
+}
+
+button {
+  background-color: cornflowerblue;
+  color: blanchedalmond;
+  margin-left: 4rem;
+  border-radius: 0.5rem;
+  vertical-align: middle;
+}
+
+input {
+  width: 15rem;
+  height: 2.5rem;
+  border: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: whitesmoke;
+  color: black;
+  vertical-align: middle;
+}
+
+mat-error {
+  color: red;
+  display: flex;
+  position: relative;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
