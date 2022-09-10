@@ -1,23 +1,28 @@
 .form-div {
-  height: 100vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  height: auto;
   align-items: center;
+  flex-direction: row;
+  text-align: center;
+  margin: 0 auto;
   background-color: blueviolet;
 }
 
 form {
-  display: inline-block
+  display: inline-block;
 }
 
-mat-card {
+.box {
   height: 25vh;
   width: 75vh;
   background-color: lightgrey;
+  margin: 0 auto;
+  border: 0.25rem beige;
+  border-radius: 0.5rem;
 }
 
 button {
+  width: 6rem;
+  height: 2.5rem;
   background-color: cornflowerblue;
   color: blanchedalmond;
   margin-left: 4rem;
@@ -35,12 +40,7 @@ input {
   vertical-align: middle;
 }
 
-mat-error {
-  color: red;
-  display: flex;
-  position: relative;
-}
 
-.uppercase {
+.upper-case {
   text-transform: uppercase;
 }

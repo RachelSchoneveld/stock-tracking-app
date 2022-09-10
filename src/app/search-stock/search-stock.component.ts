@@ -1,5 +1,5 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search-stock',
@@ -8,29 +8,35 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class SearchStockComponent  {
 
-  form!: FormGroup;
-  stockSymbol = new FormControl(null, Validators.required);
+  searchForm!: FormGroup;
+  symbol!: string;
+
+  @Output()
+  submit = new EventEmitter<FormGroup>();
 
 
   constructor() {
     this.constructForm();
    }
 
-   
-  
 
-  
+  submitForm(): void {
+    this.searchForm.markAllAsTouched();
 
+    if(this.searchForm.valid) {
+      this.submit.emit(this.searchForm);
+    }
 
-  submitForm() {
 
   }
 
   private constructForm() {
-    this.form = new FormGroup({});
-    this.form.addControl('stockSymbol', this.stockSymbol);
+    this.searchForm = new FormGroup({
+      stockSymbol: new FormControl()
+    });
+
   }
-  
+
 
 
 

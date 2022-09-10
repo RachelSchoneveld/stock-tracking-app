@@ -1,18 +1,14 @@
 <div class="form-div">
-  <mat-card>
-    <div>
-      <mat-dialog-content>
+  <div class="box">
+    <h1>STOCKS TRACKER</h1>
+    <div *ngIf="searchForm">
         <p>Enter the symbol a stock to track (i.e. AAPL, TSLA, GOOGL)</p>
-        <form [formGroup]="form" id="form" (ngSubmit)="submitForm()">
-          <mat-form-field  id="stockSymbol">
-            <input required matInput formControlName="stockSymbol" appAlphabetic placeholder="search stock" [maxLength]="5" class="uppercase">
-            <mat-error *ngIf="stockSymbol.hasError('required') && stockSymbol.touched">This field is required</mat-error>
-          </mat-form-field>
-          <button mat-raised-button color="primary" matSuffix mat-stroked-button aria-label="search">
+        <form [formGroup]="searchForm" id="searchForm" (ngSubmit)="submitForm()">
+          <input formControlName="stockSymbol" placeholder="search stock" [minLength]=1 [maxLength]=5 class="upper-case" appAlphabetic>
+          <button  type="submit">
             Track Stock
           </button>
         </form>
-      </mat-dialog-content>
     </div>
-  </mat-card>
+  </div>
 </div>

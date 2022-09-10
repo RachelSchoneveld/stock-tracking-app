@@ -1,2 +1,9 @@
-<app-search-stock></app-search-stock>
-<router-outlet></router-outlet>
+<div id="search-stock">
+  <app-search-stock
+  (submit)="submit($event)"></app-search-stock>
+</div>
+<div>
+  <app-current-quote
+  [formGroup]="formGroup"></app-current-quote>
+</div>
+<!-- <router-outlet></router-outlet> -->

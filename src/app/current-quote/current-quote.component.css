@@ -1,0 +1,22 @@
+.show-quote {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: blueviolet;
+}
+
+.box {
+  height: 25vh;
+  width: 75vh;
+  background-color: lightgrey;
+  color: black ;
+  border: 0.25rem beige;
+  border-radius: 0.5rem;
+}
+
+h1 {
+  text-align: left;
+  padding-left: 2rem;
+}
