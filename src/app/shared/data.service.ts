@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Quote} from "../domain/quote";
+import {CurrentQuote} from "../domain/current-quote";
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +8,13 @@ export class DataService {
 
   constructor() { }
 
-  dataStore: Quote[] = [];
+  dataStore: CurrentQuote[] = [];
 
-  addToDataStore(quote: Quote) {
-    this.dataStore.push(quote);
+  addToDataStore(currentQuote: CurrentQuote) {
+    this.dataStore.push(currentQuote);
   }
 
-  retrieveDataStore(): Quote[] {
+  retrieveDataStore(): CurrentQuote[] {
     return this.dataStore;
   }
 }

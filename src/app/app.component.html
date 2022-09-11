@@ -1,9 +1,12 @@
-<div id="search-stock">
-  <app-search-stock
-  (submit)="submit($event)"></app-search-stock>
+<div class="app">
+  <div id="search-stock">
+    <app-search-stock
+    (submit)="submit($event)"></app-search-stock>
+  </div>
+  <div *ngIf="showCurrentQuote">
+    <app-current-quote
+    [formGroup]="formGroup"
+    (close)="closeQuote($event)"></app-current-quote>
+  </div>
+  <router-outlet></router-outlet>
 </div>
-<div>
-  <app-current-quote
-  [formGroup]="formGroup"></app-current-quote>
-</div>
-<!-- <router-outlet></router-outlet> -->

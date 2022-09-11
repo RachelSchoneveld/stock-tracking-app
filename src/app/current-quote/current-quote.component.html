@@ -1,19 +1,27 @@
 <div class="show-quote">
   <div class="box">
     <h1>{{stockSymbol | uppercase}}</h1>
-    <table>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
-    </table>
-    <div></div>
-  </div>
-  <div>
-    <button></button>
+    <div class="table">
+      <table>
+        <tr>
+          <td>Change today: {{this.quote?.dp | number : '1.0-1'}} % </td>
+          <td><div class="stock"><div class="price">Opening price: {{this.quote?.o | currency : 'USD'}}</div><div class="icon" *ngIf="showUpward else downtrend"><i class="fa-solid fa-lg fa-arrow-up" style="color: limegreen"></i></div></div></td>
+        </tr>
+        <tr>
+          <td>Current price: {{this.quote?.c | currency : 'USD'}}</td>
+          <td>High price: {{this.quote?.h | currency : 'USD'}}</td>
+        </tr>
+      </table>
+      <div><button (click)="insiderSentiment()" class="close-button" label="social sentiment details">Go to social sentiment details</button></div>
+    </div>
+    <button class="close" (click)="closeQoutePanel()">
+      <i class="fa-solid fa-lg fa-xmark"></i>
+    </button>
   </div>
 </div>
+
+<ng-template #downtrend>
+  <div class="icon">
+    <i class="fa-solid fa-lg fa-arrow-down" style="color: red;"></i>
+  </div>
+</ng-template>

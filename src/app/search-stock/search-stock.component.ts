@@ -8,16 +8,15 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class SearchStockComponent  {
 
-  searchForm!: FormGroup;
+  searchForm = new FormGroup({
+                   stockSymbol: new FormControl()
+                });
+
   symbol!: string;
 
   @Output()
   submit = new EventEmitter<FormGroup>();
 
-
-  constructor() {
-    this.constructForm();
-   }
 
 
   submitForm(): void {
@@ -30,12 +29,6 @@ export class SearchStockComponent  {
 
   }
 
-  private constructForm() {
-    this.searchForm = new FormGroup({
-      stockSymbol: new FormControl()
-    });
-
-  }
 
 
 

@@ -10,12 +10,16 @@ export class AppComponent {
   title = 'stock-tracking-app';
   stockSymbol: string = '';
   formGroup!: FormGroup;
+  showCurrentQuote: boolean = true;
 
 
   submit(event: FormGroup): void {
     this.formGroup = event;
   }
 
+  closeQuote(event: string){
+    this.showCurrentQuote = false;
+  }
 
 
 }

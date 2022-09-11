@@ -8,23 +8,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlphabeticDirective } from './shared/alphabetic.directive';
 import { CurrentQuoteComponent } from './current-quote/current-quote.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { HttpClientModule} from "@angular/common/http";
+import { InsiderSentimentComponent } from './insider-sentiment/insider-sentiment.component';
+import { PageNotFoundComponentComponent } from './page-not-found-component/page-not-found-component.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchStockComponent,
     AlphabeticDirective,
-    CurrentQuoteComponent
+    CurrentQuoteComponent,
+    InsiderSentimentComponent,
+    PageNotFoundComponentComponent
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
+        HttpClientModule
     ],
   exports: [
   ],
-  providers: [],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA

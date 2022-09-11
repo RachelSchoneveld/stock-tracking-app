@@ -9,12 +9,49 @@
 
 .box {
   height: 25vh;
-  width: 75vh;
-  background-color: lightgrey;
+  width: 80vh;
+  background-color: white;
   color: black ;
-  border: 0.25rem beige;
+  border: 0.25rem blue;
   border-radius: 0.5rem;
+  overflow: hidden;
+  position: relative;
 }
+
+.close {
+  width:1.5rem;
+  position: absolute;
+  border:none;
+  top: 1rem;
+  right: 1rem;
+}
+
+.close-button {
+  height: 1.5rem;
+}
+
+.table {
+  width: 80vh;
+  float: left;
+}
+
+.stock {
+  overflow: hidden;
+}
+
+.price {
+  float: left;
+}
+
+.icon {
+  justify-content: right;
+  text-align: right;
+  overflow: hidden;
+  width: 20vh;
+}
+
+
+
 
 h1 {
   text-align: left;
