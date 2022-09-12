@@ -20,7 +20,7 @@ export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
   formGroup!: FormGroup;
-  stockSymbol!: string;
+  stockSymbol: string = '';
   quote!: Quote;
   result!: string;
   showUpward: boolean = false;
@@ -46,15 +46,14 @@ export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(simpleChanges: SimpleChanges): void {
     if (simpleChanges['formGroup']?.currentValue) {
-
       this.formValue = this.formGroup.value;
-      this.stockSymbol = this.formValue.stockSymbol;
 
-      if (this.stockSymbol) {
+      if (this.formValue?.stockSymbol) {
         this.currentQuotes = this.dataService.retrieveDataStore();
 
-          const stock = this.stockSymbol.trim().toUpperCase();
-        this.subscription = this.stockService.getRealtimeQuote(stock).subscribe(value => {
+          this.stockSymbol = this.formValue.stockSymbol.trim().toUpperCase();
+
+        this.subscription = this.stockService.getRealtimeQuote(this.stockSymbol).subscribe(value => {
             this.quote = value;
             this.showArrow(this.quote);
             this.addToDataStore()
