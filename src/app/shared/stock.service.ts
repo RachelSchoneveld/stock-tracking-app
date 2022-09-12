@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import * as urls from '../util/urls';
-import {subMonths,lastDayOfMonth} from "date-fns";
-import {Stock} from "../domain/stock";
 import {Quote} from "../domain/quote";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
+import {InsiderSentiment} from "../domain/insider-sentiment";
 
 
 
@@ -15,7 +14,7 @@ export class StockService {
 
 
 
-
+  private showsSentiment: boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -38,34 +37,20 @@ export class StockService {
     return this.http.get<Quote>(url, {headers: this.headers});
   }
 
-  getSentimentLastThreeMonths(stock: string): Observable<Stock[]> {
-    const startDate = this.getDateFrom();
-    const endDate = this.getDateTo()
-    const url = urls.insiderSentimentUrl(stock, startDate, endDate);
-    return this.http.get<Stock[]>(url, {headers: this.headers});
+    getSentimentLastThreeMonths(stock: string | null, startDate: string, endDate: string): Observable<InsiderSentiment | null> {
+    if(stock) {
+      const url = urls.insiderSentimentUrl(stock, startDate, endDate);
+      return this.http.get<InsiderSentiment>(url, {headers: this.headers});
+    }
+    return of(null);
   }
 
-  private getDateFrom() {
-    const date = subMonths(new Date(), 1);
-    const year = '' + date.getFullYear()
-    let month = '' + date.getMonth();
-    const day = '' + lastDayOfMonth(date);
-    if (month.length < 2) {
-      month = '0' + month;
-    }
-    return year + '-' + month + '-' + day;
+  setSentiment(show: boolean) {
+    this.showsSentiment = show;
   }
 
-  private getDateTo() {
-    const date = subMonths(new Date(), 3);
-    const year = '' + date.getFullYear();
-    let month = '' + date.getMonth();
-    if (month.length < 2) {
-      month = '0' + month;
-    }
-    const day = '01';
-
-    return year + '-' + month + '-' + day;
+  showSentiment() {
+    return this.showsSentiment;
   }
 
 

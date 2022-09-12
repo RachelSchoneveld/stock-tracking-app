@@ -1,12 +1,30 @@
 <div class="app">
   <div id="search-stock">
     <app-search-stock
-    (submit)="submit($event)"></app-search-stock>
+    (submit)="submit($event)"
+    (open)="openQuote($event)"
+    (invisible)="setStockListButtonVisisble($event)"
+    >
+  </app-search-stock>
   </div>
   <div *ngIf="showCurrentQuote">
     <app-current-quote
     [formGroup]="formGroup"
-    (close)="closeQuote($event)"></app-current-quote>
+    (close)="closeQuote($event)"
+    (showStocks)="fillStocks($event)"></app-current-quote>
+  </div>
+  <div *ngIf="listOfStocks && showStock" >
+    <div *ngFor="let stock of listOfStocks">
+      <div *ngIf="showThisStock">
+        <app-stock [quote]="stock.stockQuote"
+                   [symbol]="stock.stockSymbol"
+                   [trend]="stock.trend"
+                   (close)="closeStock($event)"
+        ></app-stock>
+      </div>
+    </div>
+
   </div>
   <router-outlet></router-outlet>
+  <button class="button" (click)="showListOfStocks()" [hidden]="buttonHidden">Back to list of stocks</button>
 </div>

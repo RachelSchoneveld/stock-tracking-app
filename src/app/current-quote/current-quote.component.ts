@@ -1,11 +1,12 @@
-import { FormGroup } from '@angular/forms';
-import {Component, Input, OnInit, OnChanges, SimpleChanges, EventEmitter, Output} from '@angular/core';
-import { FormValue } from '../domain/formvalue';
+import {Component, Input, OnInit, OnChanges, SimpleChanges, EventEmitter, Output, OnDestroy} from '@angular/core';
 import {DataService} from "../shared/data.service";
 import {StockService} from "../shared/stock.service";
 import {Quote} from "../domain/quote";
 import {CurrentQuote} from "../domain/current-quote";
 import {Router} from "@angular/router";
+import {FormGroup} from "@angular/forms";
+import {Formvalue} from "../domain/formvalue";
+import {Subscription} from "rxjs";
 
 
 
@@ -15,19 +16,22 @@ import {Router} from "@angular/router";
   templateUrl: './current-quote.component.html',
   styleUrls: ['./current-quote.component.css']
 })
-export class CurrentQuoteComponent implements OnInit, OnChanges {
+export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
   formGroup!: FormGroup;
-  formValue!: FormValue;
   stockSymbol!: string;
   quote!: Quote;
   result!: string;
   showUpward: boolean = false;
   @Output()
   close = new EventEmitter<string>();
+  @Output()
+  showStocks = new EventEmitter<CurrentQuote[]>();
   currentQuotes: CurrentQuote[] = [];
   found!: boolean;
+  formValue!: Formvalue;
+  subscription!: Subscription;
 
 
 
@@ -44,16 +48,18 @@ export class CurrentQuoteComponent implements OnInit, OnChanges {
     if (simpleChanges['formGroup']?.currentValue) {
 
       this.formValue = this.formGroup.value;
+      this.stockSymbol = this.formValue.stockSymbol;
 
-      if (this.formValue) {
-        this.stockSymbol = this.formValue.stockSymbol;
+      if (this.stockSymbol) {
         this.currentQuotes = this.dataService.retrieveDataStore();
 
-        this.stockService.getRealtimeQuote(this.stockSymbol.trim().toUpperCase()).subscribe( value => {
-          this.quote = value;
-          this.showArrow(this.quote);
-          this.addToDataStore();
-        });
+          const stock = this.stockSymbol.trim().toUpperCase();
+        this.subscription = this.stockService.getRealtimeQuote(stock).subscribe(value => {
+            this.quote = value;
+            this.showArrow(this.quote);
+            this.addToDataStore()
+          });
+
 
 
       }
@@ -61,10 +67,13 @@ export class CurrentQuoteComponent implements OnInit, OnChanges {
   }
 
 
+
+
   private addToDataStore() {
     let currentQuote = new CurrentQuote();
     currentQuote.stockSymbol = this.stockSymbol;
     currentQuote.stockQuote = this.quote;
+    currentQuote.trend = this.showUpward;
     this.findCurrentQuoteInDataStore(currentQuote);
     if (!this.found) {
       this.dataService.addToDataStore(currentQuote);
@@ -82,6 +91,14 @@ export class CurrentQuoteComponent implements OnInit, OnChanges {
 
   closeQoutePanel() {
     this.close.emit("close");
+    this.showStocks.emit(this.currentQuotes);
+  }
+
+  showInsiderSentiment() {
+    this.closeQoutePanel();
+    this.close.emit("close");
+    this.stockService.setSentiment(true);
+    this.router.navigate(['/sentiment', this.stockSymbol]);
   }
 
   findCurrentQuoteInDataStore(currentQuote: CurrentQuote) {
@@ -93,8 +110,8 @@ export class CurrentQuoteComponent implements OnInit, OnChanges {
     this.found = false;
   }
 
-
-  insiderSentiment() {
-    this.router.navigate(['/sentiment', this.stockSymbol]);
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
+
 }

@@ -1,22 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {InsiderSentimentComponent} from "./insider-sentiment/insider-sentiment.component";
-import {PageNotFoundComponentComponent} from "./page-not-found-component/page-not-found-component.component";
+import {CanActivateService} from "./can-activate-service.guard";
 
 
 const routes: Routes = [
   {
-    path: 'sentiment/:symbol',
-    component: InsiderSentimentComponent
-  },
-  {
-    path: '**',
-    component: PageNotFoundComponentComponent
+    path: 'sentiment/:stockSymbol',
+    component: InsiderSentimentComponent,
+    canActivate: [CanActivateService]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    scrollPositionRestoration: "enabled"
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

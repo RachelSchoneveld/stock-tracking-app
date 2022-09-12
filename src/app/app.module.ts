@@ -10,7 +10,7 @@ import { CurrentQuoteComponent } from './current-quote/current-quote.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { HttpClientModule} from "@angular/common/http";
 import { InsiderSentimentComponent } from './insider-sentiment/insider-sentiment.component';
-import { PageNotFoundComponentComponent } from './page-not-found-component/page-not-found-component.component';
+import { StockComponent } from './stock/stock.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { PageNotFoundComponentComponent } from './page-not-found-component/page-
     AlphabeticDirective,
     CurrentQuoteComponent,
     InsiderSentimentComponent,
-    PageNotFoundComponentComponent
+    StockComponent,
   ],
     imports: [
         BrowserModule,

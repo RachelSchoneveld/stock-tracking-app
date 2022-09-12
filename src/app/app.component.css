@@ -3,5 +3,10 @@
 }
 
 .app {
+  height:100vh;
   background-color: blueviolet;
+}
+
+.button {
+  height: 1.5rem;
 }

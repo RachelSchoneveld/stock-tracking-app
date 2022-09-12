@@ -1,3 +1,3 @@
-export interface FormValue {
+export interface Formvalue {
   stockSymbol: string;
 }

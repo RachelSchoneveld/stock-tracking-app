@@ -8,9 +8,10 @@
 }
 
 .box {
-  height: 25vh;
-  width: 80vh;
+  height: 40vh;
+  width: 100vh;
   background-color: white;
+  justify-content: center;
   color: black ;
   border: 0.25rem blue;
   border-radius: 0.5rem;
@@ -31,11 +32,23 @@
 }
 
 .table {
-  width: 80vh;
+  width: 100vh;
   float: left;
+  border: none;
 }
 
+.table>:not(caption)>*>* {
+  background-color: var(--bs-table-bg);
+  border-bottom-width: 0;
+}
+
+tr {
+  border: none;
+}
+
+
 .stock {
+  width: 60vh;
   overflow: hidden;
 }
 
@@ -47,8 +60,10 @@
   justify-content: right;
   text-align: right;
   overflow: hidden;
-  width: 20vh;
+
 }
+
+
 
 
 

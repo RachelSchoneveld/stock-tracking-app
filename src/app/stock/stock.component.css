@@ -6,17 +6,19 @@
 }
 
 .box {
-  height: 50vh;
-  width: 150vh;
+  height: 40vh;
+  width: 100vh;
   background-color: white;
   justify-content: center;
   color: black ;
   border: 0.25rem blue;
   border-radius: 0.5rem;
+  overflow: hidden;
+  position: relative;
 }
 
 .table {
-  width: 150vh;
+  width: 100vh;
   float: left;
   border: none;
 }
@@ -25,3 +27,23 @@
   background-color: var(--bs-table-bg);
   border-bottom-width: 0;
 }
+
+.stock {
+  width: 60vh;
+  overflow: hidden;
+}
+
+.close {
+  width:1.5rem;
+  position: absolute;
+  border:none;
+  top: 1rem;
+  right: 1rem;
+}
+
+.icon {
+  justify-content: right;
+  text-align: right;
+  overflow: hidden;
+}
+
