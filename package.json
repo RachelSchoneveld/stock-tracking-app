@@ -23,6 +23,7 @@
     "@stoqey/finnhub": "^0.3.4",
     "bootstrap": "^5.2.1",
     "date-fns": "^2.29.2",
+    "firebase": "^9.9.4",
     "path-browserify": "^1.0.1",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
