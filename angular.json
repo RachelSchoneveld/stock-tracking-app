@@ -42,9 +42,7 @@
             "production": {
               "budgets": [
                 {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "type": "initial"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -79,7 +77,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "stock-tracking-app:build:production"
+              "browserTarget": "stock-tracking-app:build:production",
+              "proxyConfig": "proxy-prod.conf.json"
             },
             "development": {
               "browserTarget": "stock-tracking-app:build:development"
