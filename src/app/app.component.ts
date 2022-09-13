@@ -59,7 +59,7 @@ export class AppComponent {
   showListOfStocks() {
     this.showStock = true;
     this.showThisStock =true;
-    this.router.navigate(['']);
+    this.router.navigate(['/']);
     this.buttonHidden = true;
   }
 
