@@ -4,6 +4,7 @@ import * as urls from '../util/urls';
 import {Quote} from "../domain/quote";
 import {Observable, of} from "rxjs";
 import {InsiderSentiment} from "../domain/insider-sentiment";
+import {environment} from "../../environments/environment";
 
 
 
@@ -34,13 +35,13 @@ export class StockService {
 
 
   getRealtimeQuote(stock: string): Observable<Quote>{
-    const url = urls.realTimeQuoteUrl(stock);
+    const url = `${environment.API_URL}${urls.realTimeQuoteUrl(stock)}`;
     return this.http.get<Quote>(url, {headers: this.headers});
   }
 
     getSentimentLastThreeMonths(stock: string | null, startDate: string, endDate: string): Observable<InsiderSentiment | null> {
     if(stock) {
-      const url = urls.insiderSentimentUrl(stock, startDate, endDate);
+      const url = `${environment.API_URL}${urls.insiderSentimentUrl(stock, startDate, endDate)}`;
       return this.http.get<InsiderSentiment>(url, {headers: this.headers});
     }
     return of(null);

@@ -1,2 +1,2 @@
-export const insiderSentimentUrl = (symbol: string, startDate: string, endDate: string) => `/api/stock/insider-sentiment?symbol=${symbol}&from=${startDate}&to=${endDate}`;
-export const realTimeQuoteUrl = (symbol : string) => `/api/quote?symbol=${symbol}`;
+export const insiderSentimentUrl = (symbol: string, startDate: string, endDate: string) => `/stock/insider-sentiment?symbol=${symbol}&from=${startDate}&to=${endDate}`;
+export const realTimeQuoteUrl = (symbol : string) => `/quote?symbol=${symbol}`;
