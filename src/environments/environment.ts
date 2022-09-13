@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  API_URL: "https://finnhub.io/api/v1"
 };
 
 /*
