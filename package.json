@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --prod --proxy-config proxy-prod.conf.js --base-href /",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
