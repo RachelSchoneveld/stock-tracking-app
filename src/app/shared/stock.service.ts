@@ -26,7 +26,6 @@ export class StockService {
     'observe': 'body',
     'content-type': 'application/json',
     'Access-Control-Allow-Origin': '*',
-    'X-Requested-With': 'XMLHttpRequest',
     'X-Finnhub-Token': this.finnHubKey
   });
 
