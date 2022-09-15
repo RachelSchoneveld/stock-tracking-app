@@ -3,11 +3,9 @@ import {DataService} from "../shared/data.service";
 import {StockService} from "../shared/stock.service";
 import {Quote} from "../domain/quote";
 import {CurrentQuote} from "../domain/current-quote";
-import {Router} from "@angular/router";
 import {FormGroup} from "@angular/forms";
 import {Formvalue} from "../domain/formvalue";
 import {Subscription} from "rxjs";
-
 
 
 
@@ -19,95 +17,82 @@ import {Subscription} from "rxjs";
 export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
-  formGroup!: FormGroup;
-  stockSymbol: string = '';
-  quote!: Quote;
-  result!: string;
-  showUpward: boolean = false;
+  searchForm!: FormGroup;
   @Output()
   close = new EventEmitter<string>();
   @Output()
-  showStocks = new EventEmitter<CurrentQuote[]>();
+  hidden = new EventEmitter<boolean>();
   currentQuotes: CurrentQuote[] = [];
-  found!: boolean;
+  stockSymbol!: string;
+  title!: string;
+  quote!: Quote;
   formValue!: Formvalue;
   subscription!: Subscription;
+  quoteIndex!: number;
+  hidePanel: boolean[] = [];
 
 
 
 
   constructor(private dataService: DataService,
-              private stockService: StockService,
-              private router: Router) { }
+              private stockService: StockService) { }
 
   ngOnInit(): void {
-
+    this.hidePanel.forEach(() => {
+      this.hidePanel.push(false);
+    })
   }
 
   ngOnChanges(simpleChanges: SimpleChanges): void {
-    if (simpleChanges['formGroup']?.currentValue) {
-      this.formValue = this.formGroup.value;
-
-      if (this.formValue?.stockSymbol) {
-        this.currentQuotes = this.dataService.retrieveDataStore();
-
-          this.stockSymbol = this.formValue.stockSymbol.trim().toUpperCase();
-
-        this.subscription = this.stockService.getRealtimeQuote(this.stockSymbol).subscribe(value => {
+    if (simpleChanges['searchForm']?.currentValue) {
+      if(this.searchForm){
+        this.formValue = this.searchForm.value;
+        if (this.formValue) {
+          const symbol = this.formValue.stockSymbol;
+          this.subscription = this.stockService.getRealtimeQuote(symbol.trim().toUpperCase()).subscribe(value => {
             this.quote = value;
-            this.showArrow(this.quote);
-            this.addToDataStore()
+            const currentQuote = new CurrentQuote();
+            currentQuote.stockQuote = this.quote;
+            this.stockSymbol = symbol.trim().toUpperCase();
+            currentQuote.stockSymbol = this.stockSymbol;
+            currentQuote.trend = this.showArrow(this.quote);
+            this.addToDataStore(currentQuote)
           });
-
-
-
+        }
       }
+
+      this.currentQuotes = this.dataService.retrieveDataStore();
     }
   }
 
 
 
 
-  private addToDataStore() {
-    let currentQuote = new CurrentQuote();
-    currentQuote.stockSymbol = this.stockSymbol;
-    currentQuote.stockQuote = this.quote;
-    currentQuote.trend = this.showUpward;
-    this.findCurrentQuoteInDataStore(currentQuote);
-    if (!this.found) {
-      this.dataService.addToDataStore(currentQuote);
-    }
+  private addToDataStore(currentQuote: CurrentQuote) {
+
+    this.dataService.addToDataStore(currentQuote);
   }
 
-  showArrow(quote: Quote) {
+  showArrow(quote: Quote): boolean {
     if(quote.c > quote.o) {
-      this.showUpward = true;
+      return  true;
     } else if (quote.c < quote.o){
-      this.showUpward = false;
+      return false;
     }
-
+    return false;
   }
 
-  closeQoutePanel() {
-    this.close.emit("close");
-    this.showStocks.emit(this.currentQuotes);
+  closePanel(i: number) {
+    this.hidePanel[i] =!this.hidePanel[i];
+
   }
 
   showInsiderSentiment() {
-    this.closeQoutePanel();
     this.close.emit("close");
     this.stockService.setSentiment(true);
-    this.router.navigate(['/sentiment', this.stockSymbol]);
+    this.hidden.emit(false);
   }
 
-  findCurrentQuoteInDataStore(currentQuote: CurrentQuote) {
-    const stockQuote = this.currentQuotes
-      .find(currQuote => currQuote.stockSymbol === currentQuote.stockSymbol);
-    if(stockQuote){
-      this.found = true;
-    }
-    this.found = false;
-  }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

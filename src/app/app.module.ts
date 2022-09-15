@@ -5,9 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchStockComponent } from './search-stock/search-stock.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AlphabeticDirective } from './shared/alphabetic.directive';
 import { CurrentQuoteComponent } from './current-quote/current-quote.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HttpClientModule} from "@angular/common/http";
 import { InsiderSentimentComponent } from './insider-sentiment/insider-sentiment.component';
 import { StockComponent } from './stock/stock.component';
@@ -16,7 +15,6 @@ import { StockComponent } from './stock/stock.component';
   declarations: [
     AppComponent,
     SearchStockComponent,
-    AlphabeticDirective,
     CurrentQuoteComponent,
     InsiderSentimentComponent,
     StockComponent,
@@ -25,6 +23,7 @@ import { StockComponent } from './stock/stock.component';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        FormsModule,
         ReactiveFormsModule,
         HttpClientModule
     ],

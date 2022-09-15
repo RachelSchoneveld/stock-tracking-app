@@ -1,26 +1,41 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {StockService} from "../shared/stock.service";
 import {Stock} from "../domain/stock";
 import {InsiderSentiment} from "../domain/insider-sentiment";
 import {subMonths} from "date-fns";
-import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-insider-sentiment',
   templateUrl: './insider-sentiment.component.html',
   styleUrls: ['./insider-sentiment.component.css']
 })
-export class InsiderSentimentComponent implements OnInit, OnDestroy {
+export class InsiderSentimentComponent implements OnInit {
 
   stockSymbol!: string | null;
   insiderSentiment!: InsiderSentiment | null;
   stocks!: Stock[] | undefined;
-  subscription!: Subscription;
 
   constructor(private route: ActivatedRoute,
               private stockService: StockService) {
 
+  }
+  ngOnInit(): void {
+    this.getSentiemt();
+  }
+
+
+  private getSentiemt() {
+    this.stockSymbol = this.route.snapshot.paramMap.get('stockSymbol')
+    let startDate = this.getDateFrom();
+    let endDate = this.getDateTo();
+    if (this.stockSymbol) {
+      this.stockService.getSentimentLastThreeMonths(this.stockSymbol, startDate, endDate).subscribe(
+        sentiment => {
+          this.insiderSentiment = sentiment;
+          this.stocks = this.insiderSentiment?.data;
+        });
+    }
   }
 
   private getDateFrom() {
@@ -48,6 +63,9 @@ export class InsiderSentimentComponent implements OnInit, OnDestroy {
   }
 
 
+
+
+
   getMonth(month: number): string {
     const months = ["January", "Feberuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     return months[month-1];
@@ -57,24 +75,12 @@ export class InsiderSentimentComponent implements OnInit, OnDestroy {
     return stock.change > 0;
   }
 
-  ngOnInit(): void {
-    this.stockSymbol = this.route.snapshot.params['stockSymbol'];
-    let symbol;
-    let startDate = this.getDateFrom();
-    let endDate= this.getDateTo();
-    if(this.stockSymbol) {
-      symbol = this.stockSymbol.trim().toUpperCase();
-      this.subscription = this.stockService.getSentimentLastThreeMonths(symbol, startDate, endDate).subscribe(
-        sentiment => {
-          this.insiderSentiment = sentiment;
-          this.stocks = this.insiderSentiment?.data;
-        });
-    }
-  }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+
+
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();
+  // }
 
 
 

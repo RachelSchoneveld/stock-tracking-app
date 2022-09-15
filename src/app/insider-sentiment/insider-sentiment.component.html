@@ -1,7 +1,7 @@
 <div class="wrapper">
   <div class="box">
-    <h1>{{stockSymbol | uppercase}}</h1>
-    <div class="table">
+    <h1>{{stockSymbol}}</h1>
+    <table class="table">
       <tr>
         <td *ngFor="let stock of stocks">
           <div>{{getMonth(stock.month) | uppercase}}</div>
@@ -9,7 +9,7 @@
           <div>Mspr: {{stock.mspr}}</div>
         </td>
       </tr>
-    </div>
+    </table>
   </div>
 </div>
 

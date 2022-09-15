@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import * as urls from '../util/urls';
 import {Quote} from "../domain/quote";
-import {Observable, of} from "rxjs";
 import {InsiderSentiment} from "../domain/insider-sentiment";
+import {Observable} from "rxjs";
 
 
 
@@ -38,12 +38,9 @@ export class StockService {
     return this.http.get<Quote>(url, {headers: this.headers});
   }
 
-    getSentimentLastThreeMonths(stock: string | null, startDate: string, endDate: string): Observable<InsiderSentiment | null> {
-    if(stock) {
+  getSentimentLastThreeMonths(stock: string, startDate: string, endDate: string): Observable<InsiderSentiment> {
       const url = urls.insiderSentimentUrl(stock, startDate, endDate);
       return this.http.get<InsiderSentiment>(url, {headers: this.headers});
-    }
-    return of(null);
   }
 
   setSentiment(show: boolean) {

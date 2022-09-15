@@ -1,33 +1,40 @@
-<div class="show-quote">
-  <div class="box">
-    <h1>{{stockSymbol | uppercase}}</h1>
-    <div class="table">
-      <table>
-        <tr>
-          <td class="change">Change today: {{this.quote?.dp | number : '1.0-1'}} % </td>
-          <td><div class="stock"><div class="price">Opening price: {{this.quote?.o | currency : 'USD'}}</div><div class="icon" *ngIf="showUpward else downtrend"><img alt="up" src="assets/green_sm.png"></div></div></td>
-        </tr>
-        <tr>
-          <td>Current price: {{this.quote?.c | currency : 'USD'}}</td>
-          <td>High price: {{this.quote?.h | currency : 'USD'}}</td>
-        </tr>
-      </table>
-      <div>
-        <button class="close-button" label="social sentiment details" (click)="showInsiderSentiment()">
-          Go to social sentiment details
-        </button>
+<div *ngFor="let currentQuote of currentQuotes; let i=index">
+  <div [hidden]="hidePanel[i]">
+    <div class="show-quote">
+      <div class="box">
+        <h1>{{currentQuote?.stockSymbol}}</h1>
+        <div class="table">
+          <table>
+            <tr>
+              <td class="change">Change today: {{currentQuote?.stockQuote?.dp | number : '1.0-1'}} % </td>
+              <td><div class="stock"><div class="price">Opening price: {{currentQuote?.stockQuote?.o | currency : 'USD'}}</div><div class="icon" *ngIf="currentQuote?.trend else downArrow"><img alt="up" src="assets/green_sm.png"></div></div></td>
+            </tr>
+            <tr>
+              <td>Current price: {{currentQuote?.stockQuote?.c | currency : 'USD'}}</td>
+              <td>High price: {{currentQuote?.stockQuote?.h | currency : 'USD'}}</td>
+            </tr>
+          </table>
+          <div>
+            <button (click)="showInsiderSentiment()" class="close-button" label="social sentiment details" [routerLink]="['/sentiment', currentQuote?.stockSymbol]" id="sentiment{{currentQuote?.stockSymbol}}">
+              Go to social sentiment details
+            </button>
+          </div>
+        </div>
+        <div>
+          <button class="close" (click)="closePanel(i)" id="remove{{currentQuote?.stockSymbol}}">
+            <div>x</div>
+          </button>
+        </div>
       </div>
     </div>
-    <button class="close" (click)="closeQoutePanel()">
-      <div>x</div>
-    </button>
   </div>
-</div>
 
-<ng-template #downtrend>
-  <div class="icon">
-    <img alt="down" src="assets/rood.png">
-  </div>
-</ng-template>
+  <ng-template #downArrow>
+    <div class="icon">
+      <img alt="down" src="assets/rood.png">
+    </div>
+  </ng-template>
+
+</div>
 
 

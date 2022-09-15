@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import {CurrentQuote} from "./domain/current-quote";
 import {StockService} from "./shared/stock.service";
 import {Router} from "@angular/router";
+import {Formvalue} from "./domain/formvalue";
 
 @Component({
   selector: 'app-root',
@@ -12,12 +13,13 @@ import {Router} from "@angular/router";
 export class AppComponent {
   title = 'stock-tracking-app';
   stockSymbol: string = '';
-  formGroup!: FormGroup;
-  showCurrentQuote: boolean = true;
+  searchForm!: FormGroup;
+  formValue!: Formvalue;
+  showCurrentQuotes: boolean = true;
   showStock: boolean = false;
   showThisStock: boolean = false;
   listOfStocks!: CurrentQuote[];
-  buttonHidden: boolean = false;
+  buttonHidden: boolean = true;
 
 
   constructor(private stockService: StockService,
@@ -26,12 +28,12 @@ export class AppComponent {
 
 
   submit(event: FormGroup): void {
-    this.formGroup = event;
+    this.searchForm = event;
   }
 
   closeQuote(event: string){
     if(event === "close"){
-      this.showCurrentQuote = false;
+      this.showCurrentQuotes = false;
     }
   }
 
@@ -41,14 +43,14 @@ export class AppComponent {
     }
   }
 
-  fillStocks($event: CurrentQuote[]) {
-    this.listOfStocks = $event;
-
-  }
+  // fillStocks($event: CurrentQuote[]) {
+  //   this.listOfStocks = $event;
+  //
+  // }
 
   openQuote(event: string) {
     if(event === "open") {
-      this.showCurrentQuote = true;
+      this.showCurrentQuotes = true;
     }
   }
 
@@ -58,7 +60,7 @@ export class AppComponent {
 
   showListOfStocks() {
     this.showStock = true;
-    this.showThisStock =true;
+    this.showCurrentQuotes = true;
     this.router.navigate(['/']);
     this.buttonHidden = true;
   }

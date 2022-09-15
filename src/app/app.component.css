@@ -3,10 +3,11 @@
 }
 
 .app {
-  height:100vh;
+  height: 200vh;
   background-color: blueviolet;
 }
 
-.button {
+.backButton {
   height: 1.5rem;
+  text-align: center;
 }
