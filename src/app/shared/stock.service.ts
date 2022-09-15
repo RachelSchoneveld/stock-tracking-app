@@ -24,7 +24,6 @@ export class StockService {
 
   private headers = new HttpHeaders({
     'observe': 'body',
-    'Accept': 'application/json',
     'content-type': 'application/json',
     'Access-Control-Allow-Origin': '*',
     'X-Requested-With': 'XMLHttpRequest',
