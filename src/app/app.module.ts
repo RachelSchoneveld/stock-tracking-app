@@ -9,7 +9,6 @@ import { CurrentQuoteComponent } from './current-quote/current-quote.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HttpClientModule} from "@angular/common/http";
 import { InsiderSentimentComponent } from './insider-sentiment/insider-sentiment.component';
-import { StockComponent } from './stock/stock.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { StockComponent } from './stock/stock.component';
     SearchStockComponent,
     CurrentQuoteComponent,
     InsiderSentimentComponent,
-    StockComponent,
   ],
     imports: [
         BrowserModule,

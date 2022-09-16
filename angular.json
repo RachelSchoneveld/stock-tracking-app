@@ -25,12 +25,10 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "allowedCommonJsDependencies": [
-              "@stoqey/finnhub"
-            ],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/proxy.conf.json"
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -77,8 +75,7 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "stock-tracking-app:build:production",
-              "proxyConfig": "proxy-prod.conf.json"
+              "browserTarget": "stock-tracking-app:build:production"
             },
             "development": {
               "browserTarget": "stock-tracking-app:build:development"

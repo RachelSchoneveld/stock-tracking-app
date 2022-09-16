@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy-prod.conf.json",
-    "build": "ng build --prod --base-href https://feature-stock-tracking.d2qmcu219s41gq.amplifyapp.com/",
+    "build": "ng build --prod --base-href https://RachelSchoneveld.github.io/stock-tracking-app/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
