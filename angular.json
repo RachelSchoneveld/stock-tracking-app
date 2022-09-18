@@ -75,7 +75,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "stock-tracking-app:build:production"
+              "browserTarget": "stock-tracking-app:build:production",
+              "proxyConfig": "proxy-prod.conf.json"
             },
             "development": {
               "browserTarget": "stock-tracking-app:build:development"
@@ -105,6 +106,16 @@
               "src/styles.css"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "stock-tracking-app:build:production",
+            "firebaseProject": "blahdieblah",
+            "firebaseHostingSite": "blahdieblah"
           }
         }
       }
