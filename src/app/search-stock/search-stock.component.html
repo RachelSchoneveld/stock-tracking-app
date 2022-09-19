@@ -3,8 +3,8 @@
     <h1>STOCKS TRACKER</h1>
       <p>Enter the symbol a stock to track (i.e. AAPL, TSLA, GOOGL)</p>
       <form [formGroup]="searchForm" id="search" (ngSubmit)="submitForm()">
-        <input formControlName="stockSymbol" placeholder="search stock" class="upper-case">
-        <button  type="submit">
+        <input formControlName="stockSymbol" id="stockInput" placeholder="search stock" class="upper-case">
+        <button  type="submit" id="tackBtn">
           Track Stock
         </button>
       </form>
