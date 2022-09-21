@@ -16,11 +16,6 @@ export class SearchStockComponent implements OnInit{
   @Output()
   submit = new EventEmitter<FormGroup>();
 
-  @Output()
-  open = new EventEmitter<string>();
-  @Output()
-  hidden = new EventEmitter<boolean>();
-
   constructor(private stockService: StockService,
               private formBuilder: FormBuilder) {
     this.searchForm = this.formBuilder.group({
@@ -39,11 +34,8 @@ export class SearchStockComponent implements OnInit{
 
   submitForm(): void {
     this.searchForm.markAllAsTouched();
-    // this.stockService.setSentiment(false);
     if(this.searchForm.valid) {
       this.submit.emit(this.searchForm);
-      this.open.emit("open");
-      this.hidden.emit(true);
     }
 
 
