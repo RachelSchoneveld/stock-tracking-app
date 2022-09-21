@@ -11,8 +11,6 @@ export class SearchStockComponent implements OnInit{
 
   searchForm!: FormGroup;
 
-  symbol!: string;
-
   @Output()
   submit = new EventEmitter<FormGroup>();
 

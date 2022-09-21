@@ -20,11 +20,9 @@ export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
   searchForm!: FormGroup;
   currentQuotes: CurrentQuote[] = [];
   stockSymbol!: string;
-  title!: string;
   quote!: Quote;
   formValue!: Formvalue;
   subscription!: Subscription;
-  quoteIndex!: number;
   hidePanel: boolean[] = [];
 
 
@@ -64,7 +62,7 @@ export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
     currentQuote.stockQuote = this.quote;
     this.stockSymbol = symbol.trim().toUpperCase();
     currentQuote.stockSymbol = this.stockSymbol;
-    currentQuote.trend = this.showArrow(this.quote);
+    currentQuote.trend = this.showUpOrDownArrow(this.quote);
     return currentQuote;
   }
 
@@ -73,7 +71,7 @@ export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
     this.dataService.addToDataStore(currentQuote);
   }
 
-  showArrow(quote: Quote): boolean {
+  showUpOrDownArrow(quote: Quote): boolean {
     if(quote.c > quote.o) {
       return  true;
     } else if (quote.c < quote.o){
