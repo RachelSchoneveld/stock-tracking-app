@@ -55,7 +55,6 @@ export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
       }
 
       this.currentQuotes = this.dataService.retrieveDataStore();
-
     }
   }
 

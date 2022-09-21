@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {FormGroup} from "@angular/forms";
 import {Formvalue} from "./domain/formvalue";
-import {CurrentQuote} from "./domain/current-quote";
 import {StockService} from "../shared/stock.service";
 
 @Component({
@@ -11,10 +10,8 @@ import {StockService} from "../shared/stock.service";
 })
 export class HomeComponent {
 
-  stockSymbol: string = '';
   searchForm!: FormGroup;
   formValue!: Formvalue;
-  listOfStocks!: CurrentQuote[];
 
 
   constructor(private stockService: StockService) {
