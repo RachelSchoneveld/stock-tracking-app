@@ -34,6 +34,7 @@ export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
               private stockService: StockService) { }
 
   ngOnInit(): void {
+    this.currentQuotes = this.dataService.retrieveDataStore();
     this.hidePanel.forEach(() => {
       this.hidePanel.push(false);
     })
@@ -54,6 +55,7 @@ export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
       }
 
       this.currentQuotes = this.dataService.retrieveDataStore();
+
     }
   }
 
@@ -88,7 +90,6 @@ export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
 
   showInsiderSentiment() {
     this.stockService.setSentiment(true);
-    window.scroll(0,0);
   }
 
 
