@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {StockService} from "../shared/stock.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {StockService} from "../../shared/stock.service";
 import {Stock} from "../domain/stock";
 import {InsiderSentiment} from "../domain/insider-sentiment";
 import {subMonths} from "date-fns";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-insider-sentiment',
@@ -15,8 +16,10 @@ export class InsiderSentimentComponent implements OnInit {
   stockSymbol!: string | null;
   insiderSentiment!: InsiderSentiment | null;
   stocks!: Stock[] | undefined;
+  subscription!: Subscription;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private stockService: StockService) {
 
   }
@@ -30,7 +33,7 @@ export class InsiderSentimentComponent implements OnInit {
     let startDate = this.getDateFrom();
     let endDate = this.getDateTo();
     if (this.stockSymbol) {
-      this.stockService.getSentimentLastThreeMonths(this.stockSymbol, startDate, endDate).subscribe(
+      this.subscription = this.stockService.getSentimentLastThreeMonths(this.stockSymbol, startDate, endDate).subscribe(
         sentiment => {
           this.insiderSentiment = sentiment;
           this.stocks = this.insiderSentiment?.data;
@@ -75,12 +78,16 @@ export class InsiderSentimentComponent implements OnInit {
     return stock.change > 0;
   }
 
+  showListOfStocks() {
+    this.router.navigateByUrl('/');
+  }
 
 
 
-  // ngOnDestroy() {
-  //   this.subscription.unsubscribe();
-  // }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
 
 

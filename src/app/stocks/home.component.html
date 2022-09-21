@@ -1,0 +1,11 @@
+<div class="home">
+  <div id="search-stock">
+    <app-search-stock
+      (submit)="submit($event)"
+    >
+    </app-search-stock>
+  </div>
+  <app-current-quote
+     [searchForm]="searchForm"
+  ></app-current-quote>
+</div>

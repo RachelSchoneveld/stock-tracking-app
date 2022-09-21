@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {StockService} from "../shared/stock.service";
+import {StockService} from "../../shared/stock.service";
 
 @Component({
   selector: 'app-search-stock',

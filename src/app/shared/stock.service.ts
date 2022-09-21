@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import * as urls from '../util/urls';
-import {Quote} from "../domain/quote";
-import {InsiderSentiment} from "../domain/insider-sentiment";
+import {Quote} from "../stocks/domain/quote";
+import {InsiderSentiment} from "../stocks/domain/insider-sentiment";
 import {Observable} from "rxjs";
 
 

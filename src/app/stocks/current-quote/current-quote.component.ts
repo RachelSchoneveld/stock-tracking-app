@@ -1,6 +1,6 @@
-import {Component, Input, OnInit, OnChanges, SimpleChanges, EventEmitter, Output, OnDestroy} from '@angular/core';
-import {DataService} from "../shared/data.service";
-import {StockService} from "../shared/stock.service";
+import {Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy} from '@angular/core';
+import {DataService} from "../../shared/data.service";
+import {StockService} from "../../shared/stock.service";
 import {Quote} from "../domain/quote";
 import {CurrentQuote} from "../domain/current-quote";
 import {FormGroup} from "@angular/forms";
@@ -18,10 +18,6 @@ export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
   searchForm!: FormGroup;
-  @Output()
-  close = new EventEmitter<string>();
-  @Output()
-  hidden = new EventEmitter<boolean>();
   currentQuotes: CurrentQuote[] = [];
   stockSymbol!: string;
   title!: string;
@@ -51,11 +47,7 @@ export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
           const symbol = this.formValue.stockSymbol;
           this.subscription = this.stockService.getRealtimeQuote(symbol.trim().toUpperCase()).subscribe(value => {
             this.quote = value;
-            const currentQuote = new CurrentQuote();
-            currentQuote.stockQuote = this.quote;
-            this.stockSymbol = symbol.trim().toUpperCase();
-            currentQuote.stockSymbol = this.stockSymbol;
-            currentQuote.trend = this.showArrow(this.quote);
+            const currentQuote = this.fillCurrentQuote(symbol);
             this.addToDataStore(currentQuote)
           });
         }
@@ -66,7 +58,14 @@ export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
   }
 
 
-
+  private fillCurrentQuote(symbol: string) {
+    const currentQuote = new CurrentQuote();
+    currentQuote.stockQuote = this.quote;
+    this.stockSymbol = symbol.trim().toUpperCase();
+    currentQuote.stockSymbol = this.stockSymbol;
+    currentQuote.trend = this.showArrow(this.quote);
+    return currentQuote;
+  }
 
   private addToDataStore(currentQuote: CurrentQuote) {
 
@@ -88,9 +87,8 @@ export class CurrentQuoteComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   showInsiderSentiment() {
-    this.close.emit("close");
     this.stockService.setSentiment(true);
-    this.hidden.emit(false);
+    window.scroll(0,0);
   }
 
 

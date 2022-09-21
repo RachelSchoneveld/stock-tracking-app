@@ -3,6 +3,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  background-color: blueviolet;
 }
 
 .box {
@@ -24,4 +25,14 @@
 .table>:not(caption)>*>* {
   background-color: var(--bs-table-bg);
   border-bottom-width: 0;
+}
+
+.backButton {
+  height: 1.5rem;
+  text-align: center;
+}
+
+.bottom-half {
+  height: 200vh;
+  background-color: blueviolet;
 }

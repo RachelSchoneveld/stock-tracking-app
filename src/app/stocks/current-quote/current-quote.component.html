@@ -7,7 +7,7 @@
           <table>
             <tr>
               <td class="change">Change today: {{currentQuote?.stockQuote?.dp | number : '1.0-1'}} % </td>
-              <td><div class="stock"><div class="price">Opening price: {{currentQuote?.stockQuote?.o | currency : 'USD'}}</div><div class="icon" *ngIf="currentQuote?.trend else downArrow"><img alt="up" src="assets/green_sm.png"></div></div></td>
+              <td><div class="stock"><div class="price">Opening price: {{currentQuote?.stockQuote?.o | currency : 'USD'}}</div><div class="icon" *ngIf="currentQuote?.trend else downArrow"><img alt="up" src="../../../assets/green_sm.png"></div></div></td>
             </tr>
             <tr>
               <td>Current price: {{currentQuote?.stockQuote?.c | currency : 'USD'}}</td>
@@ -31,7 +31,7 @@
 
   <ng-template #downArrow>
     <div class="icon">
-      <img alt="down" src="assets/rood.png">
+      <img alt="down" src="../../../assets/rood.png">
     </div>
   </ng-template>
 

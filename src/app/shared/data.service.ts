@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {CurrentQuote} from "../domain/current-quote";
+import {CurrentQuote} from "../stocks/domain/current-quote";
 
 @Injectable({
   providedIn: 'root'

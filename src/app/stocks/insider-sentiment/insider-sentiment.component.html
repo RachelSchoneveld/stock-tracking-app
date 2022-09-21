@@ -1,0 +1,27 @@
+<div class="wrapper">
+  <div class="box">
+    <h1>{{stockSymbol}}</h1>
+    <table class="table">
+      <tr>
+        <td *ngFor="let stock of stocks">
+          <div>{{getMonth(stock.month) | uppercase}}</div>
+          <div>Change: {{stock.change}}<span *ngIf="upwardTrend(stock) else downtrend"><img alt="up" src="../../../assets/green_sm.png"></span></div>
+          <div>Mspr: {{stock.mspr}}</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="bottom-half">
+  <br>
+  <span>
+    <div class="backButton">
+      <button id="backBtn" (click)="showListOfStocks()">Back to list of stocks</button>
+    </div>
+  </span>
+</div>
+
+
+<ng-template #downtrend>
+  <img alt="down" src="../../../assets/rood.png">
+</ng-template>

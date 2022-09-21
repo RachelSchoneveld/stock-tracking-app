@@ -1,7 +1,7 @@
 <div class="form-div">
   <div class="box">
     <h1>STOCKS TRACKER</h1>
-      <p>Enter the symbol a stock to track (i.e. AAPL, TSLA, GOOGL)</p>
+      <p>Enter the symbol a stock to track (i.e. AAPL, TSLA, GOOG)</p>
       <form [formGroup]="searchForm" id="search" (ngSubmit)="submitForm()">
         <input formControlName="stockSymbol" id="stockInput" placeholder="search stock" class="upper-case">
         <button  type="submit" id="tackBtn">
